@@ -1,0 +1,127 @@
+{% extends 'orders/main.html' %}
+{% load static %}
+{% block content%}
+
+{% include 'orders/status.html' %}
+
+<br>
+
+<div class="row">
+    <div class="col-md-7">
+        <h5>PRODUCTS</h5>
+        <hr>
+        <div class="card card-body">
+            <a class="btn btn-primary btn-sm btn-block" href="{% url 'create_product' %}">Create Product</a>
+            <div class="row">
+                <div class="col-md-12">
+                    <form class="card card-sm">
+                        <div class="card-body row no-gytters align-items-center">
+                            <div class="col">
+                                <input type="search" name="item_name" placeholder="Search for products" class="form-control form-control-borderless">
+                            </div>
+                            <div class="col-auto">
+                                <button class="btn btn-success" type="submit">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <table class="table table-sm">
+                <tr>
+                    <th>Title</th>
+                    <th>Price</th>
+                    <th>Listing Price</th>
+                    <th>Stock</th>
+                    <th>Short Description</th>
+                    <th>Product Number</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+                {% for i in products %}
+                <tr>
+                    <td>
+                        {{i.title}}
+                    </td>
+                    <td>
+                        ${{i.price}}
+                    </td>
+                    <td>
+                        ${{i.listing_price}}
+                    </td>
+                    <td>
+                        {{i.stock}}
+                    </td>
+                    <td>
+                        {{i.short_description}}
+                    </td>
+                    <td>
+                        {{i.product_number}}
+                    </td>
+                    <td><a class="btn btn-sm btn-info" href="{% url 'update_product' i.id%}">Update</a></td>
+                    <td><a class="btn btn-sm btn-danger" href="{% url 'delete_product' i.id%}">Delete</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+    <div class="col-md-5">
+        <h5>ORDERS</h5>
+        <hr>
+        <div class="card card-body">
+            <div class="card card-body">
+            <a class="btn btn-primary btn-sm btn-block" href="{% url 'create_order' %}">Create Order</a>
+            <div class="row">
+                <div class="col-md-12">
+                    <form class="card card-sm">
+                        <div class="card-body row no-gytters align-items-center">
+                            <div class="col">
+                                <input type="search" name="order_number" placeholder="Search for orders" class="form-control form-control-borderless">
+                            </div>
+                            <div class="col-auto">
+                                <button class="btn btn-success" type="submit">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <table class="table table-sm">
+                <tr>
+                    <th>Product</th>
+                    <th>Amount</th>
+                    <th>Total</th>
+                    <th>Title</th>
+                    <th>Date Order</th>
+                    <th>Order Number</th>
+                    <th>Delete</th>
+                </tr>
+                {% for i in orders %}
+                <tr>
+                    <td>
+                        {{i.product}}
+                    </td>
+                    <td>
+                        {{i.amount}}
+                    </td>
+                    <td>
+                        ${{i.total}}
+                    </td>
+                    <td>
+                        {{i.title}}
+                    </td>
+                    <td>
+                        {{i.created}}
+                    </td>
+                    <td>
+                        {{i.order_number}}
+                    </td>
+                    <td><a class="btn btn-sm btn-danger" href="{% url 'delete_order' i.id%}">Delete</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock%}
+
